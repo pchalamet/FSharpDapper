@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpDapper", "FSharpDapper\FSharpDapper.fsproj", "{BE2741EC-563F-4D29-A537-BA1C9465A4E6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpDapper.Mssql", "FSharpDapper.Mssql\FSharpDapper.Mssql.fsproj", "{8DA77A73-3B44-4724-B84C-0DE58411ADA0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpDapper.Prometheus", "FSharpDapper.Prometheus\FSharpDapper.Prometheus.fsproj", "{CC524306-DF0A-4405-8619-5F3F8FC005E0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpDapper.Tests", "FSharpDapper.Tests\FSharpDapper.Tests.fsproj", "{3D23FDA8-B716-42F3-856F-AC2B88319488}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE2741EC-563F-4D29-A537-BA1C9465A4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2741EC-563F-4D29-A537-BA1C9465A4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2741EC-563F-4D29-A537-BA1C9465A4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2741EC-563F-4D29-A537-BA1C9465A4E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA77A73-3B44-4724-B84C-0DE58411ADA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA77A73-3B44-4724-B84C-0DE58411ADA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA77A73-3B44-4724-B84C-0DE58411ADA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA77A73-3B44-4724-B84C-0DE58411ADA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC524306-DF0A-4405-8619-5F3F8FC005E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC524306-DF0A-4405-8619-5F3F8FC005E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC524306-DF0A-4405-8619-5F3F8FC005E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC524306-DF0A-4405-8619-5F3F8FC005E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D23FDA8-B716-42F3-856F-AC2B88319488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D23FDA8-B716-42F3-856F-AC2B88319488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D23FDA8-B716-42F3-856F-AC2B88319488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D23FDA8-B716-42F3-856F-AC2B88319488}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
