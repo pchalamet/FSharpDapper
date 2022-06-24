@@ -23,7 +23,7 @@ Create a connection using `DapperConnection.Create` - you can use FSharpDapper.M
 
 # Usage
 
-```
+```F#
 use conn = "...." |> DapperConnection.Create
 let status = {| Name = "toto" |} |> Select<DbStatusEx> conn
 ````
