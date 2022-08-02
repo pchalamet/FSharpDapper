@@ -44,7 +44,7 @@ Operation | Description
 `Insert<'Table>` | Insert values into table `'Table`
 `Update<'Table>` | Update table `Table` with values
 `Delete<'Table>` | Delete table `'Table` using the conditions
-`Upsert<'Table>` | Upsert values into table `'Table'`
+`Upsert<'Table>` | Upsert values into table `'Table'`. NOTE: as of now, Mssql centric.
 
 `Insert`, `Update`, `Delete` and `Upsert` support either a single value or a list. A value is either a record or an anonymous record.
 
