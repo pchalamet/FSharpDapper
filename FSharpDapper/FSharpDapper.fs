@@ -4,6 +4,8 @@ open Dapper
 open System.Collections.Generic
 open System.Transactions
 
+
+
 type OptionHandler<'T>() =
     inherit SqlMapper.TypeHandler<option<'T>>()
 
@@ -24,6 +26,9 @@ let Init() =
     SqlMapper.AddTypeHandler (OptionHandler<bool>())
 
 
+
+
+
 [<AttributeUsage(AttributeTargets.Class)>]
 type TableAttribute(name: string) =
     inherit Attribute()
@@ -34,42 +39,7 @@ type TableAttribute(name: string) =
 type KeyAttribute() =
     inherit Attribute()
 
-let getUnderlyingtype (t: Type) =
-    match t.GetInterfaces() |> Seq.tryFind (fun it -> it.IsGenericType && it.GetGenericTypeDefinition() = typedefof<IEnumerable<_>>) with
-    | Some itf -> itf.GenericTypeArguments.[0]
-    | _ -> t
 
-let getCount (o: obj) =
-    match o with
-    | null -> 0
-    | :? IEnumerable<obj> as e -> System.Linq.Enumerable.Count(e)
-    | _ -> 1
-
-let getMembers (t: Type) =
-    let underlyingType = t |> getUnderlyingtype
-    underlyingType.GetProperties() |> List.ofArray |> List.map (fun x -> x.Name)
-
-let getValues (t: Type) =
-    let underlyingType = t |> getUnderlyingtype
-    underlyingType.GetProperties() |> List.ofArray |> List.map (fun x -> sprintf "@%s" x.Name)
-
-let getKeys (t: Type) =
-    let isKey (prop: System.Reflection.PropertyInfo) =
-        let isId = prop.Name = "Id"
-        let isAttrKey = prop.GetCustomAttributes(typeof<KeyAttribute>, false).Length > 0
-        let res = isId || isAttrKey
-        res
-
-    let propIds = t.GetProperties() |> List.ofArray |> List.filter isKey
-    propIds |> List.map (fun p -> p.Name)
-
-let getTable (t : Type) =     
-    match t.GetCustomAttributes(typeof<TableAttribute>, false) |> Seq.tryHead with
-    | Some attr -> (attr :?> TableAttribute).Name
-    | _ -> t.Name
-
-let join (sep: string) (items: string list) =
-    String.Join(sep, items)
 
 
 
@@ -92,9 +62,48 @@ type DapperTransactionScope(ts: TransactionScope) =
         member _.Dispose() = ts.Dispose()
 
 
+let private getUnderlyingtype (t: Type) =
+    match t.GetInterfaces() |> Seq.tryFind (fun it -> it.IsGenericType && it.GetGenericTypeDefinition() = typedefof<IEnumerable<_>>) with
+    | Some itf -> itf.GenericTypeArguments.[0]
+    | _ -> t
+
+let internal getCount (o: obj) =
+    match o with
+    | null -> 0
+    | :? IEnumerable<obj> as e -> System.Linq.Enumerable.Count(e)
+    | _ -> 1
+
+let private getMembers (t: Type) =
+    let underlyingType = t |> getUnderlyingtype
+    underlyingType.GetProperties() |> List.ofArray |> List.map (fun x -> x.Name)
+
+let private getValues (t: Type) =
+    let underlyingType = t |> getUnderlyingtype
+    underlyingType.GetProperties() |> List.ofArray |> List.map (fun x -> sprintf "@%s" x.Name)
+
+let private getKeys (t: Type) =
+    let isKey (prop: System.Reflection.PropertyInfo) =
+        let isId = prop.Name = "Id"
+        let isAttrKey = prop.GetCustomAttributes(typeof<KeyAttribute>, false).Length > 0
+        let res = isId || isAttrKey
+        res
+
+    let propIds = t.GetProperties() |> List.ofArray |> List.filter isKey
+    propIds |> List.map (fun p -> p.Name)
+
+let private getTable (t : Type) =     
+    match t.GetCustomAttributes(typeof<TableAttribute>, false) |> Seq.tryHead with
+    | Some attr -> (attr :?> TableAttribute).Name
+    | _ -> t.Name
+
+let private join (sep: string) (items: string list) =
+    String.Join(sep, items)
+
+
 let private escapeName = sprintf "[%s]"
 
 let private parameterName = sprintf "@%s"
+
 
 let UseTransactionScope (connection: IDapperConnection) =
     connection.TransactionScope()
@@ -155,6 +164,7 @@ let Delete<'Table> (connection: IDapperConnection) (conditions: obj) =
     let sql = sprintf "DELETE %s WHERE %s" from where
     connection.Execute(sql, conditions)
 
+// NOTE: this is probably SQLServer only :-)
 let Upsert<'Table> (connection: IDapperConnection) (entity: obj) =
     // MERGE INTO <Table> as TARGET
     // USING ( VALUES(@Name, @Status) ) AS SOURCE ([Name], [Status]) ON SOURCE.[Name] = TARGET.[Name]
