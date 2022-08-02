@@ -6,6 +6,8 @@ It maps F# collection, records and anonymous types to Dapper. Discriminated unio
 
 Implementation for Mssql (database connection) and Prometheus (performance monitoring) are provided.
 
+NOTE: Upsert function is really Mssql centric. You have been warned.
+
 # Plain Old Record Object
 In order to read/write data, you will need to define a record first:
 
